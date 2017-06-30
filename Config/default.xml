@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="gb2312"?>
+<Root>
+  <ComDevices>
+    <Device Name="Dev1" Para="COM10,100" />
+    <Device Name="Dev2" Para="COM11,200" />
+  </ComDevices>
+  <NetDevices>
+    <Device Name="Dev1" Para="192.168.0.1:10000,100" />
+    <Device Name="Dev2" Para="192.168.0.2:20000,200" />
+  </NetDevices>
+  <Modbuses>
+    <Bus Name="Bus1" Para="COM10,100,10,RTU" >
+    	<Device Name="Dev1" Para="1" />
+	    <Device Name="Dev2" Para="2" />
+	</Bus>
+    <Bus Name="Bus2" Para="COM11,200,20,TCP" >
+		<Device Name="Dev11" Para="11" />
+	    <Device Name="Dev12" Para="12" />
+	</Bus>
+  </Modbuses>
+</Root>
