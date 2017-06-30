@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectGuid>{5E30C777-5C4A-48DB-AF36-E619554A9467}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>xDevice</RootNamespace>
+    <AssemblyName>xDevice</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <Optimize>True</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\CANDevice.cs" />
+    <Compile Include="Common\CANMsg.cs" />
+    <Compile Include="Common\ComDevice.cs" />
+    <Compile Include="Common\ComDeviceManager.cs" />
+    <Compile Include="Common\CRC.cs" />
+    <Compile Include="Common\CommonDevice.cs" />
+    <Compile Include="Common\HexString.cs" />
+    <Compile Include="Common\LogMsg.cs" />
+    <Compile Include="Common\MatchRule.cs" />
+    <Compile Include="Common\Modbus.cs" />
+    <Compile Include="Common\ModbusDevice.cs" />
+    <Compile Include="Common\ModbusManager.cs" />
+    <Compile Include="Common\MsgLogger.cs" />
+    <Compile Include="Common\NetDevice.cs" />
+    <Compile Include="Common\NetDeviceManager.cs" />
+    <Compile Include="Common\VSPD.cs" />
+    <Compile Include="Forms\AboutForm.cs" />
+    <Compile Include="Forms\AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddComDeviceForm.cs" />
+    <Compile Include="Forms\AddComDeviceForm.Designer.cs">
+      <DependentUpon>AddComDeviceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddModbusDeviceForm.cs" />
+    <Compile Include="Forms\AddModbusDeviceForm.Designer.cs">
+      <DependentUpon>AddModbusDeviceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddModbusForm.cs" />
+    <Compile Include="Forms\AddModbusForm.Designer.cs">
+      <DependentUpon>AddModbusForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddNetDeviceForm.cs" />
+    <Compile Include="Forms\AddNetDeviceForm.Designer.cs">
+      <DependentUpon>AddNetDeviceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddRegForm.cs" />
+    <Compile Include="Forms\AddRegForm.Designer.cs">
+      <DependentUpon>AddRegForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddRuleForm.cs" />
+    <Compile Include="Forms\AddRuleForm.Designer.cs">
+      <DependentUpon>AddRuleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EditRuleForm.cs" />
+    <Compile Include="Forms\EditRuleForm.Designer.cs">
+      <DependentUpon>EditRuleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\VirtualPortForm.cs" />
+    <Compile Include="Forms\VirtualPortForm.Designer.cs">
+      <DependentUpon>VirtualPortForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs" />
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Common" />
+    <Folder Include="Drivers" />
+    <Folder Include="Drivers\x64" />
+    <Folder Include="Drivers\x86" />
+    <Folder Include="Forms" />
+    <Folder Include="Config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Config\default.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Drivers\x64\evsbc8.cat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Drivers\x64\evsbc8.inf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Drivers\x64\evsbc8.sys">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Drivers\x64\evserial8.cat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Drivers\x64\evserial8.inf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Drivers\x64\evserial8.sys">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Drivers\x64\vsbsetup.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Drivers\x86\evsbc8.cat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Drivers\x86\evsbc8.inf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Drivers\x86\evsbc8.sys">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Drivers\x86\evserial8.cat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Drivers\x86\evserial8.inf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Drivers\x86\evserial8.sys">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Drivers\x86\vsbsetup.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddComDeviceForm.resx">
+      <DependentUpon>AddComDeviceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddModbusDeviceForm.resx">
+      <DependentUpon>AddModbusDeviceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddModbusForm.resx">
+      <DependentUpon>AddModbusForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddNetDeviceForm.resx">
+      <DependentUpon>AddNetDeviceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddRegForm.resx">
+      <DependentUpon>AddRegForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddRuleForm.resx">
+      <DependentUpon>AddRuleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditRuleForm.resx">
+      <DependentUpon>EditRuleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\VirtualPortForm.resx">
+      <DependentUpon>VirtualPortForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.Designer.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
