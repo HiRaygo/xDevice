@@ -36,7 +36,7 @@ namespace xDevice.Forms
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Serial Ports");
+			System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("串口列表");
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.pictureBox2 = new System.Windows.Forms.PictureBox();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -85,7 +85,7 @@ namespace xDevice.Forms
 			this.groupBox1.Size = new System.Drawing.Size(327, 310);
 			this.groupBox1.TabIndex = 7;
 			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = "Port Manage";
+			this.groupBox1.Text = "串口管理";
 			// 
 			// pictureBox2
 			// 
@@ -129,8 +129,7 @@ namespace xDevice.Forms
 			this.label8.Name = "label8";
 			this.label8.Size = new System.Drawing.Size(216, 55);
 			this.label8.TabIndex = 15;
-			this.label8.Text = "Please click the right button to install virtual port driver when you run the app" +
-			" in the first time, it will spend about 30s.";
+			this.label8.Text = "第一次使用时请点击右边的按钮来安装驱动，大概耗时30秒。";
 			// 
 			// buttonDeleteAll
 			// 
@@ -138,7 +137,7 @@ namespace xDevice.Forms
 			this.buttonDeleteAll.Name = "buttonDeleteAll";
 			this.buttonDeleteAll.Size = new System.Drawing.Size(73, 49);
 			this.buttonDeleteAll.TabIndex = 14;
-			this.buttonDeleteAll.Text = "Delete All";
+			this.buttonDeleteAll.Text = "全部删除";
 			this.buttonDeleteAll.UseVisualStyleBackColor = true;
 			this.buttonDeleteAll.Click += new System.EventHandler(this.ButtonDeleteAllClick);
 			// 
@@ -149,7 +148,7 @@ namespace xDevice.Forms
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(217, 49);
 			this.label7.TabIndex = 13;
-			this.label7.Text = "All virtual port will be removed. Make sure all ports are closed.";
+			this.label7.Text = "删除所有的虚拟串口，请在删除前确认都已关闭。";
 			this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// label3
@@ -158,7 +157,7 @@ namespace xDevice.Forms
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(77, 23);
 			this.label3.TabIndex = 9;
-			this.label3.Text = "Second port:";
+			this.label3.Text = "串口2：";
 			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// label4
@@ -167,7 +166,7 @@ namespace xDevice.Forms
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(77, 23);
 			this.label4.TabIndex = 10;
-			this.label4.Text = "First port:";
+			this.label4.Text = "串口1：";
 			this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// textBox3
@@ -198,7 +197,7 @@ namespace xDevice.Forms
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(77, 23);
 			this.label2.TabIndex = 5;
-			this.label2.Text = "Second port:";
+			this.label2.Text = "串口2：";
 			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// label1
@@ -207,7 +206,7 @@ namespace xDevice.Forms
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(77, 23);
 			this.label1.TabIndex = 5;
-			this.label1.Text = "First port:";
+			this.label1.Text = "串口1：";
 			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// textBox1
@@ -241,7 +240,7 @@ namespace xDevice.Forms
 			this.btnDeletePair.Name = "btnDeletePair";
 			this.btnDeletePair.Size = new System.Drawing.Size(73, 49);
 			this.btnDeletePair.TabIndex = 1;
-			this.btnDeletePair.Text = "Delete Pair";
+			this.btnDeletePair.Text = "删除";
 			this.btnDeletePair.UseVisualStyleBackColor = true;
 			this.btnDeletePair.Click += new System.EventHandler(this.BtnDeletePairClick);
 			// 
@@ -251,7 +250,7 @@ namespace xDevice.Forms
 			this.btnCreatePair.Name = "btnCreatePair";
 			this.btnCreatePair.Size = new System.Drawing.Size(73, 49);
 			this.btnCreatePair.TabIndex = 0;
-			this.btnCreatePair.Text = "Add Pair";
+			this.btnCreatePair.Text = "创建";
 			this.btnCreatePair.UseVisualStyleBackColor = true;
 			this.btnCreatePair.Click += new System.EventHandler(this.BtnCreatePairClick);
 			// 
@@ -260,7 +259,7 @@ namespace xDevice.Forms
 			this.treeView1.Location = new System.Drawing.Point(12, 12);
 			this.treeView1.Name = "treeView1";
 			treeNode1.Name = "Node0";
-			treeNode1.Text = "Serial Ports";
+			treeNode1.Text = "串口列表";
 			this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
 									treeNode1});
 			this.treeView1.Size = new System.Drawing.Size(140, 310);

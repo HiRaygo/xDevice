@@ -45,7 +45,7 @@ namespace xDevice.Forms
 			
 			string com1 = textBox1.Text;
 			string com2 = textBox2.Text;
-			if((com1.StartsWith("COM"))&&(com2.StartsWith("COM")))
+			if(com1.StartsWith("COM"))
 			{
 				if(VSPD.CreatePair(com1, com2))
 				{
@@ -53,12 +53,12 @@ namespace xDevice.Forms
 				}
 				else
 				{
-					MessageBox.Show("Create port failed.");
+					MessageBox.Show("创建失败");
 				}
 			}
 			else
 			{
-				MessageBox.Show("Port must be named like COM#");
+				MessageBox.Show("端口必须命名为 COM# 的格式");
 			}
 		}
 		
@@ -78,7 +78,7 @@ namespace xDevice.Forms
 					}
 					else
 					{
-						MessageBox.Show("Delete port failed.");
+						MessageBox.Show("删除失败");
 					}
 				}
 			}		
@@ -107,7 +107,7 @@ namespace xDevice.Forms
 				UpdatePortList();
 			}
 			else
-				MessageBox.Show("Delete ports failed.");
+				MessageBox.Show("删除失败");
 		}
 		
 		///Update the port treeview list		
@@ -129,13 +129,13 @@ namespace xDevice.Forms
 			string exepath;
 			string runpath = Application.StartupPath;
 			if(Environment.Is64BitOperatingSystem)
-				exepath = runpath + @"\Driver\x64\vsbsetup.exe";
+				exepath = runpath + @"\Drivers\x64\vsbsetup.exe";
 			else
-				exepath = runpath + @"\Driver\x86\vsbsetup.exe";
+				exepath = runpath + @"\Drivers\x86\vsbsetup.exe";
 			if(System.IO.File.Exists(exepath))
 				InstallDriver(exepath);
 			else
-				MessageBox.Show("Driver not exists.");
+				MessageBox.Show("驱动不存在");
 		}
 		
 		private void InstallDriver(string exepath)
@@ -147,7 +147,7 @@ namespace xDevice.Forms
 			exp.StartInfo.WorkingDirectory = exepath.Replace("vsbsetup.exe", "");
 			exp.Start();
 			exp.WaitForExit();
-			MessageBox.Show("Install driver success.");
+			MessageBox.Show("驱动安装成功");
 		}
 		
 		private bool CheckDll()
@@ -157,7 +157,7 @@ namespace xDevice.Forms
 				return true;
 			else
 			{
-				MessageBox.Show("Dll lost");
+				MessageBox.Show("缺少vspdctl.dll");
 				return false;
 			}				
 		}
