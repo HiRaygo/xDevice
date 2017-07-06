@@ -92,6 +92,10 @@
     <Compile Include="Forms\AddRuleForm.Designer.cs">
       <DependentUpon>AddRuleForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\EditRegForm.cs" />
+    <Compile Include="Forms\EditRegForm.Designer.cs">
+      <DependentUpon>EditRegForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\EditRuleForm.cs" />
     <Compile Include="Forms\EditRuleForm.Designer.cs">
       <DependentUpon>EditRuleForm.cs</DependentUpon>
@@ -109,9 +113,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Common" />
-    <Folder Include="Drivers" />
-    <Folder Include="Drivers\x64" />
-    <Folder Include="Drivers\x86" />
     <Folder Include="Forms" />
     <Folder Include="Config" />
   </ItemGroup>
@@ -119,48 +120,6 @@
     <None Include="app.config" />
     <None Include="Config\default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Drivers\x64\evsbc8.cat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Drivers\x64\evsbc8.inf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Drivers\x64\evsbc8.sys">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Drivers\x64\evserial8.cat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Drivers\x64\evserial8.inf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Drivers\x64\evserial8.sys">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Drivers\x64\vsbsetup.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Drivers\x86\evsbc8.cat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Drivers\x86\evsbc8.inf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Drivers\x86\evsbc8.sys">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Drivers\x86\evserial8.cat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Drivers\x86\evserial8.inf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Drivers\x86\evserial8.sys">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Drivers\x86\vsbsetup.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -184,6 +143,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddRuleForm.resx">
       <DependentUpon>AddRuleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditRegForm.resx">
+      <DependentUpon>EditRegForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\EditRuleForm.resx">
       <DependentUpon>EditRuleForm.cs</DependentUpon>

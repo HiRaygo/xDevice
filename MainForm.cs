@@ -694,11 +694,6 @@ namespace xDevice
 		}
 		
 		
-		//编辑规则-快捷菜单
-		void EditRuleToolStripMenuItemClick(object sender, EventArgs e)
-		{
-			EditRule();
-		}
 		//编辑规则
 		void EditRule()
 		{
@@ -764,6 +759,10 @@ namespace xDevice
 			EditRule();
 		}
 		
+		void EditRuleToolStripMenuItemClick(object sender, EventArgs e)
+		{
+			EditRule();
+		}
 		//删除规则
 		void DeleteRuleToolStripMenuItemClick(object sender, EventArgs e)
 		{
@@ -939,6 +938,12 @@ namespace xDevice
 		//添加寄存器
 		void AddRegsMenuItemClick(object sender, EventArgs e)
 		{
+			Addreg();	
+		}
+		
+		//添加寄存器
+		void Addreg()
+		{
 			TreeNode node = treeViewDevice.SelectedNode;
 			if((node != null) && (node.Parent != null))
 			{
@@ -961,7 +966,7 @@ namespace xDevice
 					device.AddReg(reg.Addr, reg);
 					UpdateListViewReg(device.GetRegs());
 				}
-			}		
+			}
 		}
 		
 		//导出寄存器配置到文件
@@ -1046,6 +1051,7 @@ namespace xDevice
 		{
 			LoadConfig();
 		}
+		
 		void LoadConfig()
 		{
 			XmlNodeList comlist, netlist, modlist;
@@ -1201,6 +1207,122 @@ namespace xDevice
 			}
 			xmlWriter.WriteEndElement();
 			xmlWriter.Close();
+		}
+		
+		//双击编辑寄存器或添加寄存器
+		void ListViewRegMouseDoubleClick(object sender, MouseEventArgs e)
+		{
+			var items = listViewReg.SelectedItems;
+			if(items == null || items.Count ==0)
+			{
+				Addreg();
+			}
+			else
+			{
+				EditReg();
+			}
+		}
+		
+		//编辑寄存器
+		void EditReg()
+		{
+			var items = listViewReg.SelectedItems;
+			if(items == null || items.Count ==0) return;
+			ListViewItem lvi = items[0];
+			if(lvi == null) return;
+			
+			EditRegForm erf = new EditRegForm(this.TopMost);
+			erf.RegName = lvi.SubItems[0].Text;
+			erf.RegAddr = UInt16.Parse(lvi.SubItems[1].Text);
+			erf.RegValue = Int16.Parse(lvi.SubItems[2].Text);
+			if(lvi.SubItems[3].Text == "Const")
+			{
+				erf.Umode = UpdateMode.Const;
+			}
+			else if(lvi.SubItems[3].Text == "Random")
+			{
+				erf.Umode = UpdateMode.Random;
+			}
+			else if(lvi.SubItems[3].Text == "StepAdd")
+			{
+				erf.Umode = UpdateMode.StepAdd;
+			}
+			else if(lvi.SubItems[3].Text == "StepDec")
+			{
+				erf.Umode = UpdateMode.StepDec;
+			}
+			else if(lvi.SubItems[3].Text == "RollD")
+			{
+				erf.Umode = UpdateMode.RollD;
+			}
+			else if(lvi.SubItems[3].Text == "RollA")
+			{
+				erf.Umode = UpdateMode.RollA;
+			}else{
+				erf.Umode = UpdateMode.Const;
+			}
+			erf.RegLLimit = Int16.Parse(lvi.SubItems[4].Text);
+			erf.RegHLimit = Int16.Parse(lvi.SubItems[5].Text);
+			erf.RegStep = Int16.Parse(lvi.SubItems[6].Text);
+			
+			ModbusData reg;
+			if(erf.ShowDialog() == DialogResult.OK)
+			{
+				reg = new ModbusData(erf.RegName, erf.RegAddr, erf.Umode, erf.RegValue, erf.RegLLimit, erf.RegHLimit,erf.RegStep);
+			}
+			else{
+				return;
+			}
+			
+			//刷新列表
+			TreeNode node = treeViewDevice.SelectedNode;
+			if(node == null) return;
+			string devicename = node.Text;
+			Modbus bus;
+			if(!ModbusManager.GetModbusByName(node.Parent.Text, out bus))
+				return;
+			
+			ModbusDevice device;
+			if(bus.GetDeviceByName(devicename, out device))
+			{
+				device.ReplaceReg(erf.RegAddr, reg);
+				UpdateListViewReg(device.GetRegs());
+			}
+		}
+		
+		void EditToolStripMenuItemClick(object sender, EventArgs e)
+		{
+			EditReg();
+		}
+		
+		void DeleteToolStripMenuItemClick(object sender, EventArgs e)
+		{
+			DeleteReg();
+		}
+		
+		//删除寄存器
+		void DeleteReg()
+		{
+			var items = listViewReg.SelectedItems;
+			if(items == null || items.Count ==0) return;
+			ListViewItem lvi = items[0];
+			if(lvi == null) return;			
+			UInt16 regAddr = UInt16.Parse(lvi.SubItems[1].Text);
+			
+			//刷新列表
+			TreeNode node = treeViewDevice.SelectedNode;
+			if(node == null) return;
+			string devicename = node.Text;
+			Modbus bus;
+			if(!ModbusManager.GetModbusByName(node.Parent.Text, out bus))
+				return;
+			
+			ModbusDevice device;
+			if(bus.GetDeviceByName(devicename, out device))
+			{
+				device.DeleteReg(regAddr);
+				UpdateListViewReg(device.GetRegs());
+			}
 		}
 	}
 }

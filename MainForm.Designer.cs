@@ -122,9 +122,12 @@ namespace xDevice
 			this.ImportRegsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ExportRegsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
-			this.stopBusDeviceMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.startBusDeviceMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.stopBusDeviceMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.deleteBusDeviceMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.contextMenuReg = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStrip1.SuspendLayout();
 			this.menuToolBar.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -141,6 +144,7 @@ namespace xDevice
 			this.contextMenuCommonDevice.SuspendLayout();
 			this.contextMenuBus.SuspendLayout();
 			this.contextMenuBusDevice.SuspendLayout();
+			this.contextMenuReg.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// statusStrip1
@@ -342,6 +346,7 @@ namespace xDevice
 									this.cHDeviceName,
 									this.cHDeviceParas});
 			this.listViewDevice.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.listViewDevice.FullRowSelect = true;
 			this.listViewDevice.Location = new System.Drawing.Point(0, 0);
 			this.listViewDevice.MultiSelect = false;
 			this.listViewDevice.Name = "listViewDevice";
@@ -371,7 +376,9 @@ namespace xDevice
 									this.cHRegLLimit,
 									this.cHRegHLimit,
 									this.cHRegStep});
+			this.listViewReg.ContextMenuStrip = this.contextMenuReg;
 			this.listViewReg.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.listViewReg.FullRowSelect = true;
 			this.listViewReg.Location = new System.Drawing.Point(0, 0);
 			this.listViewReg.Name = "listViewReg";
 			this.listViewReg.Size = new System.Drawing.Size(770, 400);
@@ -379,6 +386,7 @@ namespace xDevice
 			this.listViewReg.UseCompatibleStateImageBehavior = false;
 			this.listViewReg.View = System.Windows.Forms.View.Details;
 			this.listViewReg.Visible = false;
+			this.listViewReg.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ListViewRegMouseDoubleClick);
 			// 
 			// cHRegName
 			// 
@@ -794,13 +802,6 @@ namespace xDevice
 			this.toolStripSeparator10.Name = "toolStripSeparator10";
 			this.toolStripSeparator10.Size = new System.Drawing.Size(157, 6);
 			// 
-			// stopBusDeviceMenuItem
-			// 
-			this.stopBusDeviceMenuItem.Name = "stopBusDeviceMenuItem";
-			this.stopBusDeviceMenuItem.Size = new System.Drawing.Size(160, 22);
-			this.stopBusDeviceMenuItem.Text = "停止设备";
-			this.stopBusDeviceMenuItem.Click += new System.EventHandler(this.MenuItemStopDeviceClick);
-			// 
 			// startBusDeviceMenuItem
 			// 
 			this.startBusDeviceMenuItem.Name = "startBusDeviceMenuItem";
@@ -808,12 +809,41 @@ namespace xDevice
 			this.startBusDeviceMenuItem.Text = "启动设备";
 			this.startBusDeviceMenuItem.Click += new System.EventHandler(this.MenuItemStartDeviceClick);
 			// 
+			// stopBusDeviceMenuItem
+			// 
+			this.stopBusDeviceMenuItem.Name = "stopBusDeviceMenuItem";
+			this.stopBusDeviceMenuItem.Size = new System.Drawing.Size(160, 22);
+			this.stopBusDeviceMenuItem.Text = "停止设备";
+			this.stopBusDeviceMenuItem.Click += new System.EventHandler(this.MenuItemStopDeviceClick);
+			// 
 			// deleteBusDeviceMenuItem
 			// 
 			this.deleteBusDeviceMenuItem.Name = "deleteBusDeviceMenuItem";
 			this.deleteBusDeviceMenuItem.Size = new System.Drawing.Size(160, 22);
 			this.deleteBusDeviceMenuItem.Text = "删除设备";
 			this.deleteBusDeviceMenuItem.Click += new System.EventHandler(this.MenuItemDeleteDeviceClick);
+			// 
+			// contextMenuReg
+			// 
+			this.contextMenuReg.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+									this.editToolStripMenuItem,
+									this.deleteToolStripMenuItem});
+			this.contextMenuReg.Name = "contextMenuReg";
+			this.contextMenuReg.Size = new System.Drawing.Size(101, 48);
+			// 
+			// editToolStripMenuItem
+			// 
+			this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+			this.editToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+			this.editToolStripMenuItem.Text = "编辑";
+			this.editToolStripMenuItem.Click += new System.EventHandler(this.EditToolStripMenuItemClick);
+			// 
+			// deleteToolStripMenuItem
+			// 
+			this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+			this.deleteToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+			this.deleteToolStripMenuItem.Text = "删除";
+			this.deleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItemClick);
 			// 
 			// MainForm
 			// 
@@ -847,9 +877,13 @@ namespace xDevice
 			this.contextMenuCommonDevice.ResumeLayout(false);
 			this.contextMenuBus.ResumeLayout(false);
 			this.contextMenuBusDevice.ResumeLayout(false);
+			this.contextMenuReg.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}
+		private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+		private System.Windows.Forms.ContextMenuStrip contextMenuReg;
 		private System.Windows.Forms.ToolStripMenuItem SaveConfigtoolStripMenuItem;
 		private System.Windows.Forms.ColumnHeader cHRegStep;
 		private System.Windows.Forms.ColumnHeader cHRegHLimit;
