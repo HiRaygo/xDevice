@@ -1,4 +1,4 @@
-﻿/*
+/*
  * 由SharpDevelop创建。
  * 用户： XiaoSanYa
  * 日期: 2017/6/20
@@ -86,6 +86,16 @@ namespace xDevice.Common
 			LLimit = llimit;
 			Step = step;			
 		}
+		
+		public void SetParas(string name, UpdateMode mode, Int16 val, Int16 llimit, Int16 hlimit, Int16 step)
+		{
+			Name = name;
+			Umode = mode;
+			Value = val;
+			HLimit = hlimit;
+			LLimit = llimit;
+			Step = step;			
+		}
 	}
 	
 	/// <summary>
@@ -152,6 +162,34 @@ namespace xDevice.Common
 				return false;
 			mDataRegs.Add(regaddr, regdata);
 			return true;
+		}		
+		
+		/// <summary>
+		/// 从寄存器列表中删除一个寄存器
+		/// </summary>
+		/// <param name="regaddr">寄存器地址</param>
+		public void DeleteReg(int regaddr)
+		{
+			lock(obj)
+			{
+				mDataRegs.Remove(regaddr);
+			}
+		}
+		
+		/// <summary>
+		/// 替换寄存器列表中的一条
+		/// </summary>
+		/// <param name="regaddr">寄存器地址</param>
+		/// <param name="newreg">新寄存器</param>
+		public void ReplaceReg(int regaddr, ModbusData newreg)
+		{
+			lock(obj)
+			{
+				if(mDataRegs.ContainsKey(regaddr))
+				{
+					mDataRegs[regaddr] = newreg;
+				}
+			}
 		}
 		
 		/// <summary>
@@ -169,6 +207,7 @@ namespace xDevice.Common
 			return dlist;
 		}
 		
+				
 		/// <summary>
 		/// 从xml文件导入配置
 		/// </summary>
@@ -178,6 +217,7 @@ namespace xDevice.Common
 			lock(obj)
 			{
 				mDataRegs.Clear();
+				mFiles.Clear();
 				XmlNodeList nlist, flist;
 				try{
 					XmlDocument xmlDoc=new XmlDocument(); 
@@ -321,23 +361,23 @@ namespace xDevice.Common
 							data.Value = (Int16)(rd.Next(data.LLimit, data.HLimit));
 							break;
 						case UpdateMode.StepAdd:
-							if(data.HLimit <= data.Value)
+							if(data.HLimit <= data.Value+data.Step)
 							{
 								data.Value = data.HLimit;
 							}
 							else
 							{
-								data.Value++;
+								data.Value = (Int16)(data.Value + data.Step);
 							}
 							break;
 						case UpdateMode.StepDec:
-							if(data.Value <= data.LLimit)
+							if(data.Value - data.Step <= data.LLimit)
 							{
 								data.Value = data.LLimit;
 							}
 							else
 							{
-								data.Value--;
+								data.Value = (Int16)(data.Value - data.Step);
 							}
 							break;
 						case UpdateMode.RollD:
@@ -627,7 +667,7 @@ namespace xDevice.Common
 			if(childcode == 0x01)
 			{
 				if(datalen != 6) return false;
-				int filelen = ((int)rcvBytes[5])<<24 + ((int)rcvBytes[6])<<16 +((int)rcvBytes[7])<<8 + rcvBytes[8];
+				int filelen = rcvBytes[6]*65536 + rcvBytes[7]*256 + rcvBytes[8];
 				FileData file = new FileData(filetype, filelen);
 				file.dFrameLen = (rcvBytes[9] >224)? 224: rcvBytes[9];
 				if(mFiles.ContainsKey(filetype))
@@ -720,7 +760,7 @@ namespace xDevice.Common
 						rspBytes[3] = 4;
 						rspBytes[7] = (byte)(len);
 						if(mFrameId* file.dFrameLen + len == file.Data.Length)
-							mDState = FileDownState.Finish;
+							mDState = FileDownState.Loaded;
 						return true;
 					}
 					break;
@@ -921,5 +961,6 @@ namespace xDevice.Common
 			}			
 			return false;
 		}
+		
 	}
 }
