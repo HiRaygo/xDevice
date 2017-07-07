@@ -37,9 +37,10 @@ namespace xDevice
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("通用串口设备");
-			System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("通用网络设备");
-			System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Modbus设备");
+			System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("通用串口设备");
+			System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("通用网络设备");
+			System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Modbus设备");
+			System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Canbus设备");
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.StatusLabelDevice = new System.Windows.Forms.ToolStripStatusLabel();
 			this.StatusLabelPara = new System.Windows.Forms.ToolStripStatusLabel();
@@ -54,6 +55,10 @@ namespace xDevice
 			this.cRCCalcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.topMostToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.tranceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem100 = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem75 = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem50 = new System.Windows.Forms.ToolStripMenuItem();
 			this.HelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -70,6 +75,9 @@ namespace xDevice
 			this.cHRegLLimit = new System.Windows.Forms.ColumnHeader();
 			this.cHRegHLimit = new System.Windows.Forms.ColumnHeader();
 			this.cHRegStep = new System.Windows.Forms.ColumnHeader();
+			this.contextMenuReg = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.listViewRule = new System.Windows.Forms.ListView();
 			this.chRuleName = new System.Windows.Forms.ColumnHeader();
 			this.chEnable = new System.Windows.Forms.ColumnHeader();
@@ -125,9 +133,7 @@ namespace xDevice
 			this.startBusDeviceMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.stopBusDeviceMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.deleteBusDeviceMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.contextMenuReg = new System.Windows.Forms.ContextMenuStrip(this.components);
-			this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.setInterfereToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStrip1.SuspendLayout();
 			this.menuToolBar.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -138,13 +144,13 @@ namespace xDevice
 			this.splitContainer2.Panel1.SuspendLayout();
 			this.splitContainer2.Panel2.SuspendLayout();
 			this.splitContainer2.SuspendLayout();
+			this.contextMenuReg.SuspendLayout();
 			this.contextMenuRule.SuspendLayout();
 			this.contextMenuLog.SuspendLayout();
 			this.contextMenuCommon.SuspendLayout();
 			this.contextMenuCommonDevice.SuspendLayout();
 			this.contextMenuBus.SuspendLayout();
 			this.contextMenuBusDevice.SuspendLayout();
-			this.contextMenuReg.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// statusStrip1
@@ -251,7 +257,8 @@ namespace xDevice
 			// toolStripMenuItem1
 			// 
 			this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-									this.topMostToolStripMenuItem});
+									this.topMostToolStripMenuItem,
+									this.tranceToolStripMenuItem});
 			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
 			this.toolStripMenuItem1.Size = new System.Drawing.Size(59, 21);
 			this.toolStripMenuItem1.Text = "选项(&S)";
@@ -262,6 +269,39 @@ namespace xDevice
 			this.topMostToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
 			this.topMostToolStripMenuItem.Text = "窗口在最上方(&T)";
 			this.topMostToolStripMenuItem.Click += new System.EventHandler(this.TopMostToolStripMenuItemClick);
+			// 
+			// tranceToolStripMenuItem
+			// 
+			this.tranceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+									this.toolStripMenuItem100,
+									this.toolStripMenuItem75,
+									this.toolStripMenuItem50});
+			this.tranceToolStripMenuItem.Name = "tranceToolStripMenuItem";
+			this.tranceToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+			this.tranceToolStripMenuItem.Text = "透明度";
+			// 
+			// toolStripMenuItem100
+			// 
+			this.toolStripMenuItem100.Checked = true;
+			this.toolStripMenuItem100.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.toolStripMenuItem100.Name = "toolStripMenuItem100";
+			this.toolStripMenuItem100.Size = new System.Drawing.Size(108, 22);
+			this.toolStripMenuItem100.Text = "100%";
+			this.toolStripMenuItem100.Click += new System.EventHandler(this.ToolStripMenuItem4Click);
+			// 
+			// toolStripMenuItem75
+			// 
+			this.toolStripMenuItem75.Name = "toolStripMenuItem75";
+			this.toolStripMenuItem75.Size = new System.Drawing.Size(108, 22);
+			this.toolStripMenuItem75.Text = "75%";
+			this.toolStripMenuItem75.Click += new System.EventHandler(this.ToolStripMenuItem75Click);
+			// 
+			// toolStripMenuItem50
+			// 
+			this.toolStripMenuItem50.Name = "toolStripMenuItem50";
+			this.toolStripMenuItem50.Size = new System.Drawing.Size(108, 22);
+			this.toolStripMenuItem50.Text = "50%";
+			this.toolStripMenuItem50.Click += new System.EventHandler(this.ToolStripMenuItem50Click);
 			// 
 			// HelpToolStripMenuItem
 			// 
@@ -325,16 +365,19 @@ namespace xDevice
 			this.treeViewDevice.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.treeViewDevice.Location = new System.Drawing.Point(0, 0);
 			this.treeViewDevice.Name = "treeViewDevice";
-			treeNode1.Name = "RootCom";
-			treeNode1.Text = "通用串口设备";
-			treeNode2.Name = "RootNet";
-			treeNode2.Text = "通用网络设备";
-			treeNode3.Name = "RootModbus";
-			treeNode3.Text = "Modbus设备";
+			treeNode5.Name = "RootCom";
+			treeNode5.Text = "通用串口设备";
+			treeNode6.Name = "RootNet";
+			treeNode6.Text = "通用网络设备";
+			treeNode7.Name = "RootModbus";
+			treeNode7.Text = "Modbus设备";
+			treeNode8.Name = "RootCanbus";
+			treeNode8.Text = "Canbus设备";
 			this.treeViewDevice.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-									treeNode1,
-									treeNode2,
-									treeNode3});
+									treeNode5,
+									treeNode6,
+									treeNode7,
+									treeNode8});
 			this.treeViewDevice.Size = new System.Drawing.Size(140, 400);
 			this.treeViewDevice.TabIndex = 0;
 			this.treeViewDevice.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeViewDeviceAfterSelect);
@@ -417,6 +460,28 @@ namespace xDevice
 			// cHRegStep
 			// 
 			this.cHRegStep.Text = "步进";
+			// 
+			// contextMenuReg
+			// 
+			this.contextMenuReg.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+									this.editToolStripMenuItem,
+									this.deleteToolStripMenuItem});
+			this.contextMenuReg.Name = "contextMenuReg";
+			this.contextMenuReg.Size = new System.Drawing.Size(101, 48);
+			// 
+			// editToolStripMenuItem
+			// 
+			this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+			this.editToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+			this.editToolStripMenuItem.Text = "编辑";
+			this.editToolStripMenuItem.Click += new System.EventHandler(this.EditToolStripMenuItemClick);
+			// 
+			// deleteToolStripMenuItem
+			// 
+			this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+			this.deleteToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+			this.deleteToolStripMenuItem.Text = "删除";
+			this.deleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItemClick);
 			// 
 			// listViewRule
 			// 
@@ -720,46 +785,47 @@ namespace xDevice
 									this.toolStripSeparator7,
 									this.startBusToolStripMenuItem,
 									this.stopBusToolStripMenuItem,
+									this.deleteBusToolStripMenuItem,
 									this.toolStripSeparator8,
-									this.deleteBusToolStripMenuItem});
+									this.setInterfereToolStripMenuItem});
 			this.contextMenuBus.Name = "contextMenuBusDevice";
-			this.contextMenuBus.Size = new System.Drawing.Size(149, 104);
+			this.contextMenuBus.Size = new System.Drawing.Size(153, 148);
 			// 
 			// addBusDeviceToolStripMenuItem
 			// 
 			this.addBusDeviceToolStripMenuItem.Name = "addBusDeviceToolStripMenuItem";
-			this.addBusDeviceToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+			this.addBusDeviceToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.addBusDeviceToolStripMenuItem.Text = "添加总线设备";
 			this.addBusDeviceToolStripMenuItem.Click += new System.EventHandler(this.MenuItemAddDeviceClick);
 			// 
 			// toolStripSeparator7
 			// 
 			this.toolStripSeparator7.Name = "toolStripSeparator7";
-			this.toolStripSeparator7.Size = new System.Drawing.Size(145, 6);
+			this.toolStripSeparator7.Size = new System.Drawing.Size(149, 6);
 			// 
 			// startBusToolStripMenuItem
 			// 
 			this.startBusToolStripMenuItem.Name = "startBusToolStripMenuItem";
-			this.startBusToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+			this.startBusToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.startBusToolStripMenuItem.Text = "启动总线";
 			this.startBusToolStripMenuItem.Click += new System.EventHandler(this.StartBusToolStripMenuItemClick);
 			// 
 			// stopBusToolStripMenuItem
 			// 
 			this.stopBusToolStripMenuItem.Name = "stopBusToolStripMenuItem";
-			this.stopBusToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+			this.stopBusToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.stopBusToolStripMenuItem.Text = "停止总线";
 			this.stopBusToolStripMenuItem.Click += new System.EventHandler(this.StopBusToolStripMenuItemClick);
 			// 
 			// toolStripSeparator8
 			// 
 			this.toolStripSeparator8.Name = "toolStripSeparator8";
-			this.toolStripSeparator8.Size = new System.Drawing.Size(145, 6);
+			this.toolStripSeparator8.Size = new System.Drawing.Size(149, 6);
 			// 
 			// deleteBusToolStripMenuItem
 			// 
 			this.deleteBusToolStripMenuItem.Name = "deleteBusToolStripMenuItem";
-			this.deleteBusToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+			this.deleteBusToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.deleteBusToolStripMenuItem.Text = "删除总线";
 			this.deleteBusToolStripMenuItem.Click += new System.EventHandler(this.MenuItemDeleteDeviceClick);
 			// 
@@ -823,27 +889,12 @@ namespace xDevice
 			this.deleteBusDeviceMenuItem.Text = "删除设备";
 			this.deleteBusDeviceMenuItem.Click += new System.EventHandler(this.MenuItemDeleteDeviceClick);
 			// 
-			// contextMenuReg
+			// setInterfereToolStripMenuItem
 			// 
-			this.contextMenuReg.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-									this.editToolStripMenuItem,
-									this.deleteToolStripMenuItem});
-			this.contextMenuReg.Name = "contextMenuReg";
-			this.contextMenuReg.Size = new System.Drawing.Size(101, 48);
-			// 
-			// editToolStripMenuItem
-			// 
-			this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-			this.editToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
-			this.editToolStripMenuItem.Text = "编辑";
-			this.editToolStripMenuItem.Click += new System.EventHandler(this.EditToolStripMenuItemClick);
-			// 
-			// deleteToolStripMenuItem
-			// 
-			this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-			this.deleteToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
-			this.deleteToolStripMenuItem.Text = "删除";
-			this.deleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItemClick);
+			this.setInterfereToolStripMenuItem.Name = "setInterfereToolStripMenuItem";
+			this.setInterfereToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.setInterfereToolStripMenuItem.Text = "设置干扰信号";
+			this.setInterfereToolStripMenuItem.Click += new System.EventHandler(this.SetInterfereToolStripMenuItemClick);
 			// 
 			// MainForm
 			// 
@@ -871,16 +922,21 @@ namespace xDevice
 			this.splitContainer2.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
 			this.splitContainer2.ResumeLayout(false);
+			this.contextMenuReg.ResumeLayout(false);
 			this.contextMenuRule.ResumeLayout(false);
 			this.contextMenuLog.ResumeLayout(false);
 			this.contextMenuCommon.ResumeLayout(false);
 			this.contextMenuCommonDevice.ResumeLayout(false);
 			this.contextMenuBus.ResumeLayout(false);
 			this.contextMenuBusDevice.ResumeLayout(false);
-			this.contextMenuReg.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}
+		private System.Windows.Forms.ToolStripMenuItem setInterfereToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem50;
+		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem75;
+		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem100;
+		private System.Windows.Forms.ToolStripMenuItem tranceToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
 		private System.Windows.Forms.ContextMenuStrip contextMenuReg;

@@ -32,6 +32,9 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="C1.Win.C1SplitContainer.4, Version=4.0.20163.212, Culture=neutral, PublicKeyToken=79882d576c6336da">
+      <HintPath>..\ComponentOne\v4.0\C1.Win.C1SplitContainer.4.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -48,7 +51,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\CANDevice.cs" />
+    <Compile Include="Common\Canbus.cs" />
+    <Compile Include="Common\CanbusDevice.cs" />
+    <Compile Include="Common\CanbusManager.cs" />
     <Compile Include="Common\CANMsg.cs" />
     <Compile Include="Common\ComDevice.cs" />
     <Compile Include="Common\ComDeviceManager.cs" />
@@ -68,9 +73,21 @@
     <Compile Include="Forms\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\AddCanbusDeviceForm.cs" />
+    <Compile Include="Forms\AddCanbusDeviceForm.Designer.cs">
+      <DependentUpon>AddCanbusDeviceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddCanbusForm.cs" />
+    <Compile Include="Forms\AddCanbusForm.Designer.cs">
+      <DependentUpon>AddCanbusForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\AddComDeviceForm.cs" />
     <Compile Include="Forms\AddComDeviceForm.Designer.cs">
       <DependentUpon>AddComDeviceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddInterfereForm.cs" />
+    <Compile Include="Forms\AddInterfereForm.Designer.cs">
+      <DependentUpon>AddInterfereForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\AddModbusDeviceForm.cs" />
     <Compile Include="Forms\AddModbusDeviceForm.Designer.cs">
@@ -126,8 +143,17 @@
     <EmbeddedResource Include="Forms\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddCanbusDeviceForm.resx">
+      <DependentUpon>AddCanbusDeviceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddCanbusForm.resx">
+      <DependentUpon>AddCanbusForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddComDeviceForm.resx">
       <DependentUpon>AddComDeviceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddInterfereForm.resx">
+      <DependentUpon>AddInterfereForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddModbusDeviceForm.resx">
       <DependentUpon>AddModbusDeviceForm.cs</DependentUpon>

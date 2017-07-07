@@ -112,8 +112,7 @@ namespace xDevice
 						AddComDeviceForm acdform = new AddComDeviceForm(this.TopMost);
 						if(acdform.ShowDialog() == DialogResult.OK)
 						{
-							ComDevice cd = new ComDevice(acdform.DeviceName);
-							cd.SetParas(acdform.PortName, acdform.CommTimeout);
+							ComDevice cd = new ComDevice(acdform.DeviceName, acdform.CommPara);
 							if(ComDeviceManager.AddDevice(cd))
 							{
 								treeViewDevice.SelectedNode.Nodes.Add(cd.Name);
@@ -127,8 +126,7 @@ namespace xDevice
 						AddNetDeviceForm andform = new AddNetDeviceForm(this.TopMost);
 						if(andform.ShowDialog() == DialogResult.OK)
 						{
-							NetDevice nd = new NetDevice(andform.DeviceName);
-							nd.SetParas(andform.DeviceIP, andform.DevicePort, andform.Timeout);
+							NetDevice nd = new NetDevice(andform.DeviceName, andform.CommPara);
 							if(NetDeviceManager.AddDevice(nd))
 							{
 								treeViewDevice.SelectedNode.Nodes.Add(nd.Name);
@@ -142,11 +140,24 @@ namespace xDevice
 						AddModbusForm amform = new AddModbusForm(this.TopMost);
 						if(amform.ShowDialog() == DialogResult.OK)
 						{
-							Modbus mb = new Modbus(amform.BusName);
-							mb.SetParas(amform.ComParas, amform.MBType);
+							Modbus mb = new Modbus(amform.BusName, amform.ComParas);
 							if(ModbusManager.AddModbus(mb))
 							{
 								treeViewDevice.SelectedNode.Nodes.Add("Modbus", mb.Name);
+								treeViewDevice.ExpandAll();
+							}
+						}
+					}
+					//Canbus
+					else if(node.Name == "RootCanbus")
+					{
+						AddCanbusForm acform = new AddCanbusForm(this.TopMost);
+						if(acform.ShowDialog() == DialogResult.OK)
+						{
+							Canbus cb = new Canbus(acform.BusName, acform.ComParas);
+							if(CanbusManager.AddCanbus(cb))
+							{
+								treeViewDevice.SelectedNode.Nodes.Add("Canbus", cb.Name);
 								treeViewDevice.ExpandAll();
 							}
 						}
@@ -167,6 +178,23 @@ namespace xDevice
 								if(bus.AddDevice(device))
 								{
 									treeViewDevice.SelectedNode.Nodes.Add("BusDevice",device.Name);
+									treeViewDevice.ExpandAll();
+								}
+							}							
+						}
+					}
+					else if(node.Name == "Canbus")
+					{
+						AddCanbusDeviceForm acdform = new AddCanbusDeviceForm(this.TopMost);
+						if(acdform.ShowDialog() == DialogResult.OK)
+						{							
+							Canbus bus;
+							if(CanbusManager.GetCanbusByName(node.Text, out bus))
+							{
+								CanbusDevice device = new CanbusDevice(acdform.DeviceName, acdform.DeviceAddr);
+								if(bus.AddDevice(device))
+								{
+									treeViewDevice.SelectedNode.Nodes.Add("CanDevice",device.Name);
 									treeViewDevice.ExpandAll();
 								}
 							}							
@@ -386,11 +414,25 @@ namespace xDevice
 					ModbusManager.DeleteModbus(devicename);
 					treeViewDevice.SelectedNode.Remove();
 				}
+				//Canbus总线
+				else if(node.Parent.Name == "RootCanbus")
+				{
+					CanbusManager.DeleteCanbus(devicename);
+					treeViewDevice.SelectedNode.Remove();
+				}
 				//Modbus设备
 				else if(node.Parent.Name == "Modbus")
 				{
 					Modbus bus;
 					ModbusManager.GetModbusByName(node.Parent.Text, out bus);
+					bus.DeleteDevice(devicename);
+					treeViewDevice.SelectedNode.Remove();
+				}
+				//Canbus设备
+				else if(node.Parent.Name == "Canbus")
+				{
+					Canbus bus;
+					CanbusManager.GetCanbusByName(node.Parent.Text, out bus);
 					bus.DeleteDevice(devicename);
 					treeViewDevice.SelectedNode.Remove();
 				}
@@ -897,7 +939,11 @@ namespace xDevice
 				//CANBus设备
 				if(node.Name == "Canbus")
 				{					
-					
+					Canbus bus;
+					if(CanbusManager.GetCanbusByName(busname, out bus))
+					{
+						bus.Start();
+					}
 				}
 				//Modbus设备
 				else if(node.Name == "Modbus")
@@ -920,8 +966,12 @@ namespace xDevice
 				string busname = node.Text;
 				//CANBus设备
 				if(node.Name == "Canbus")
-				{					
-					
+				{	
+					Canbus bus;
+					if(CanbusManager.GetCanbusByName(busname, out bus))
+					{
+						bus.Stop();
+					}					
 				}
 				//Modbus设备
 				else if(node.Name == "Modbus")
@@ -1100,7 +1150,6 @@ namespace xDevice
 				return;
 			}
 			//modbus
-			string type;
 			try{
 				int n=0;
 				foreach(XmlNode xn in modlist)
@@ -1322,6 +1371,39 @@ namespace xDevice
 			{
 				device.DeleteReg(regAddr);
 				UpdateListViewReg(device.GetRegs());
+			}
+		}
+		
+		void ToolStripMenuItem4Click(object sender, EventArgs e)
+		{
+			this.Opacity = 1.0;
+			toolStripMenuItem100.Checked = true;
+			toolStripMenuItem75.Checked = false;
+			toolStripMenuItem50.Checked = false;
+		}
+		
+		void ToolStripMenuItem75Click(object sender, EventArgs e)
+		{
+			this.Opacity = 0.75;
+			toolStripMenuItem100.Checked = false;
+			toolStripMenuItem75.Checked = true;
+			toolStripMenuItem50.Checked = false;
+		}
+		
+		void ToolStripMenuItem50Click(object sender, EventArgs e)
+		{
+			this.Opacity = 0.5;
+			toolStripMenuItem100.Checked = false;
+			toolStripMenuItem75.Checked = false;
+			toolStripMenuItem50.Checked = true;
+		}
+		
+		void SetInterfereToolStripMenuItemClick(object sender, EventArgs e)
+		{
+			AddInterfereForm aiform = new AddInterfereForm();
+			if(aiform.ShowDialog() == DialogResult.OK)
+			{
+				
 			}
 		}
 	}
