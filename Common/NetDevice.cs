@@ -29,16 +29,11 @@ namespace xDevice.Common
 		const int MAXCLIENTS = 10;
 		const int RECEIVEBUFFERSIZE = 256;
 		
-		public NetDevice(string name)
-		{
-			Name = name;
-			
-			Running = false;
-			AllClients = new Hashtable();
-		}
-		
 		public NetDevice(string name, string para)
 		{
+			Running = false;
+			AllClients = new Hashtable();
+			
 			Name = name;
 			mDeviceIP = "127.0.0.1";
 			mDevicePort = 65432;
@@ -57,24 +52,6 @@ namespace xDevice.Common
 		~NetDevice()
 		{
 			Stop();
-		}
-		
-		/// <summary>
-		/// 设置设备的参数
-		/// </summary>
-		/// <param name="IP">IP</param>
-		/// <param name="Port">端口</param>
-		/// <param name="timeout">超时</param>
-		public void SetParas(string ip, int port, int timeout)
-		{
-			//IP
-			mDeviceIP = ip;
-			//端口
-			mDevicePort = port;
-        	//超时
-        	mTimeout = timeout;
-        	//参数字符串
-        	Para = ip +":"+ port.ToString();
 		}
 		
 		/// <summary>

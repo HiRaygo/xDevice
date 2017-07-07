@@ -20,11 +20,6 @@ namespace xDevice.Common
 		string mPortName;
 		int mTimeOut;
 		
-		public ComDevice(string name)
-		{
-			Name = name;
-		}
-		
 		public ComDevice(string name, string para)
 		{
 			Name = name;
@@ -50,20 +45,7 @@ namespace xDevice.Common
 			Stop();
 		}
 		
-		/// <summary>
-		/// 设置设备的串口参数
-		/// </summary>
-		/// <param name="portname">串口号</param>
-		/// <param name="timeout">超时</param>
-		public void SetParas(string portname, int timeout)
-		{
-			//串口号
-			mPortName = portname;
-			mTimeOut = timeout;
-        	//参数字符串
-        	Para = portname + ","+ timeout.ToString();
-		}
-		
+
 		/// <summary>
 		/// 启动设备
 		/// </summary>
@@ -73,7 +55,7 @@ namespace xDevice.Common
 			if((port == null) || (!port.IsOpen))
 			{
 				try{
-					port = new SerialPort(mPortName, 9600, Parity.None, 8, StopBits.One);
+					port = new SerialPort(mPortName+"A", 9600, Parity.None, 8, StopBits.One);
 		            port.RtsEnable = true;
 		            port.ReadTimeout = mTimeOut;
 		            port.DataReceived += new SerialDataReceivedEventHandler(port_DataReceived);

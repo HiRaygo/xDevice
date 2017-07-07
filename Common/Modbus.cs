@@ -50,16 +50,6 @@ namespace xDevice.Common
 		Socket mServer;
 		Hashtable mClients;
 		
-		public Modbus(string name)
-		{
-			Name = name;
-			mToRun = false;
-			mCommType = 0;
-			Running = false;
-			DeviceDict = new Dictionary<byte, ModbusDevice>();
-			DeviceNameDict = new Dictionary<byte, string>();
-		}
-		
 		public Modbus(string name, string commparas)
 		{
 			Name = name;
@@ -72,17 +62,57 @@ namespace xDevice.Common
 			ParseParas();			
 		}
 		
-		/// <summary>
-		/// 设置参数
-		/// </summary>
-		/// <param name="commparas">通讯参数</param>
-		/// <param name="addr">地址</param>
-		/// <param name="mbtype">Modbus类型</param>
-		public bool SetParas(string commparas, ModbusType mbtype)
+		~Modbus()
 		{
-			CommParas = commparas;
-			MBType = mbtype;
-			return ParseParas();
+			Stop();
+		}
+		
+		/// <summary>
+		/// 解析通讯参数
+		/// </summary>
+		/// <returns></returns>
+		private bool ParseParas()
+		{
+			if(CommParas.StartsWith("COM"))
+			{
+				mCommType = 1;
+				string[] paras = CommParas.Split(new char[]{','});
+				if((paras != null) && (paras.Length == 4))
+				{
+					mComPort = paras[0];
+					mComTimeout = int.Parse(paras[1]);
+					mRespDelay = int.Parse(paras[2]);
+					if(paras[3] == "RTU")
+						MBType = ModbusType.RTU;
+					else if(paras[3] == "TCP")
+						MBType = ModbusType.TCP;
+					else
+						return false;
+				}
+				else
+					return false;
+			}
+			else
+			{
+				mCommType = 2;
+				string[] paras = CommParas.Split(new char[]{',',':'});
+				if((paras != null) && (paras.Length == 5))
+				{
+					mNetIP = paras[0];
+					mNetPort = int.Parse(paras[1]);
+					mNetTimeout = int.Parse(paras[2]);
+					mRespDelay = int.Parse(paras[3]);
+					if(paras[4] == "RTU")
+						MBType = ModbusType.RTU;
+					else if(paras[4] == "TCP")
+						MBType = ModbusType.TCP;
+					else
+						return false;
+				}
+				else
+					return false;
+			}
+			return true;
 		}
 		
 		/// <summary>
@@ -168,53 +198,7 @@ namespace xDevice.Common
 			}
 			return info;
 		}
-		/// <summary>
-		/// 解析通讯参数
-		/// </summary>
-		/// <returns></returns>
-		private bool ParseParas()
-		{
-			if(CommParas.StartsWith("COM"))
-			{
-				mCommType = 1;
-				string[] paras = CommParas.Split(new char[]{','});
-				if((paras != null) && (paras.Length == 4))
-				{
-					mComPort = paras[0];
-					mComTimeout = int.Parse(paras[1]);
-					mRespDelay = int.Parse(paras[2]);
-					if(paras[3] == "RTU")
-						MBType = ModbusType.RTU;
-					else if(paras[3] == "TCP")
-						MBType = ModbusType.TCP;
-					else
-						return false;
-				}
-				else
-					return false;
-			}
-			else
-			{
-				mCommType = 2;
-				string[] paras = CommParas.Split(new char[]{',',':'});
-				if((paras != null) && (paras.Length == 5))
-				{
-					mNetIP = paras[0];
-					mNetPort = int.Parse(paras[1]);
-					mNetTimeout = int.Parse(paras[2]);
-					mRespDelay = int.Parse(paras[3]);
-					if(paras[4] == "RTU")
-						MBType = ModbusType.RTU;
-					else if(paras[4] == "TCP")
-						MBType = ModbusType.TCP;
-					else
-						return false;
-				}
-				else
-					return false;
-			}
-			return true;
-		}
+		
 		
 		/// <summary>
 		/// 启动总线
