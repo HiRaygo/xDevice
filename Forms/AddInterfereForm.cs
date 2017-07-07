@@ -1,26 +1,28 @@
 ﻿/*
  * 由SharpDevelop创建。
  * 用户： XiaoSanYa
- * 日期: 2017/5/21
- * 时间: 18:40
+ * 日期: 2017/5/12
+ * 时间: 22:16
  * 
  * 要改变这种模板请点击 工具|选项|代码编写|编辑标准头文件
  */
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using xDevice.Common;
 
 namespace xDevice.Forms
 {
 	/// <summary>
-	/// Description of AddNetDeviceForm.
+	/// Description of AddDeviceForm.
 	/// </summary>
-	public partial class AddNetDeviceForm : Form
+	public partial class AddInterfereForm : Form
 	{
-		public string DeviceName;
-		public string CommPara;		
+		public int TrigerType;
+		public int TrigerTime;		
+		public byte[] Data1, Data2;
 		
-		public AddNetDeviceForm()
+		public AddInterfereForm()
 		{
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
@@ -32,31 +34,34 @@ namespace xDevice.Forms
 			//
 		}
 		
-		public AddNetDeviceForm(bool tm)
+		public AddInterfereForm(bool tm)
 		{
 			InitializeComponent();
+			
 			this.TopMost = tm;
 		}
 		
 		void ButtonConformClick(object sender, EventArgs e)
 		{
 			labeltips.Text = "";
+			if(radioButtonSTriger.Checked)
+				TrigerType = 1;
+			else
+				TrigerType = 2;
 			
-			DeviceName = textBoxName.Text.Trim();
-		
-			string DeviceIP = textBoxIP.Text.Trim();
-			string Port = textBoxPort.Text.Trim();;
-			if(string.IsNullOrEmpty(DeviceName) || string.IsNullOrEmpty(DeviceIP)|| string.IsNullOrEmpty(Port))
+			TrigerTime = 5000;
+			if(radioButtonRandom.Checked)
+				TrigerTime = -1;
+			else
+				int.TryParse(textBoxInterval1.Text, out TrigerTime);
+			
+			Data1 = HexString.HexString2Bytes(textBoxData1.Text);
+			Data2 = HexString.HexString2Bytes(textBoxData2.Text);
+			if(Data1 == null) 
 			{
-			   	labeltips.Text = "设备名、IP、端口不能为空!";
-			   	return;
+				labeltips.Text = "Hex数据有误，请检查。";
+				return;
 			}
-			int DevicePort = 65432;
-			int Timeout = 3000;
-			int.TryParse(Port, out DevicePort);
-			int.TryParse(textBoxTimeout.Text, out Timeout);
-			CommPara = DeviceIP +","+ DevicePort.ToString() +","+ Timeout.ToString();
-			
 			DialogResult = DialogResult.OK;
 		}
 		

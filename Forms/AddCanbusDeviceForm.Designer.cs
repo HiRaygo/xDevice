@@ -8,7 +8,7 @@
  */
 namespace xDevice.Forms
 {
-	partial class AddModbusDeviceForm
+	partial class AddCanbusDeviceForm
 	{
 		/// <summary>
 		/// Designer variable used to keep track of non-visual components.
@@ -70,7 +70,7 @@ namespace xDevice.Forms
 			// 
 			// label1
 			// 
-			this.label1.Location = new System.Drawing.Point(39, 49);
+			this.label1.Location = new System.Drawing.Point(44, 52);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(53, 23);
 			this.label1.TabIndex = 2;
@@ -79,7 +79,7 @@ namespace xDevice.Forms
 			// 
 			// textBoxName
 			// 
-			this.textBoxName.Location = new System.Drawing.Point(97, 49);
+			this.textBoxName.Location = new System.Drawing.Point(102, 52);
 			this.textBoxName.MaxLength = 20;
 			this.textBoxName.Name = "textBoxName";
 			this.textBoxName.Size = new System.Drawing.Size(93, 21);
@@ -88,7 +88,7 @@ namespace xDevice.Forms
 			// 
 			// label7
 			// 
-			this.label7.Location = new System.Drawing.Point(39, 97);
+			this.label7.Location = new System.Drawing.Point(44, 100);
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(53, 23);
 			this.label7.TabIndex = 14;
@@ -97,7 +97,7 @@ namespace xDevice.Forms
 			// 
 			// textBoxAddr
 			// 
-			this.textBoxAddr.Location = new System.Drawing.Point(97, 97);
+			this.textBoxAddr.Location = new System.Drawing.Point(102, 100);
 			this.textBoxAddr.MaxLength = 3;
 			this.textBoxAddr.Name = "textBoxAddr";
 			this.textBoxAddr.Size = new System.Drawing.Size(93, 21);
@@ -107,7 +107,7 @@ namespace xDevice.Forms
 			// labeltips
 			// 
 			this.labeltips.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-			this.labeltips.Location = new System.Drawing.Point(39, 145);
+			this.labeltips.Location = new System.Drawing.Point(44, 148);
 			this.labeltips.Name = "labeltips";
 			this.labeltips.Size = new System.Drawing.Size(318, 23);
 			this.labeltips.TabIndex = 18;
@@ -116,7 +116,7 @@ namespace xDevice.Forms
 			// label3
 			// 
 			this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
-			this.label3.Location = new System.Drawing.Point(211, 97);
+			this.label3.Location = new System.Drawing.Point(216, 100);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(146, 23);
 			this.label3.TabIndex = 19;
@@ -126,14 +126,14 @@ namespace xDevice.Forms
 			// label4
 			// 
 			this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
-			this.label4.Location = new System.Drawing.Point(211, 49);
+			this.label4.Location = new System.Drawing.Point(216, 52);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(146, 23);
 			this.label4.TabIndex = 20;
 			this.label4.Text = "*名称请不要重复";
 			this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// AddModbusDeviceForm
+			// AddCanbusDeviceForm
 			// 
 			this.AcceptButton = this.buttonConform;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -153,9 +153,9 @@ namespace xDevice.Forms
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
-			this.Name = "AddModbusDeviceForm";
+			this.Name = "AddCanbusDeviceForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-			this.Text = "添加Modbus设备";
+			this.Text = "添加Canbus设备";
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}

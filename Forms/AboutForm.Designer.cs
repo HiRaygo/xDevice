@@ -36,13 +36,36 @@ namespace xDevice.Forms
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.label1 = new System.Windows.Forms.Label();
+			this.label2 = new System.Windows.Forms.Label();
 			this.SuspendLayout();
+			// 
+			// label1
+			// 
+			this.label1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.label1.Location = new System.Drawing.Point(-2, 38);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(398, 26);
+			this.label1.TabIndex = 0;
+			this.label1.Text = "xDevice V1.04";
+			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// label2
+			// 
+			this.label2.Location = new System.Drawing.Point(-2, 78);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(398, 23);
+			this.label2.TabIndex = 1;
+			this.label2.Text = "@";
+			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// AboutForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(394, 272);
+			this.Controls.Add(this.label2);
+			this.Controls.Add(this.label1);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
@@ -51,5 +74,7 @@ namespace xDevice.Forms
 			this.Text = "关于";
 			this.ResumeLayout(false);
 		}
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Label label1;
 	}
 }

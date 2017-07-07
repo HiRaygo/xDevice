@@ -20,7 +20,6 @@ namespace xDevice.Forms
 	{
 		public string BusName;
 		public string ComParas;
-		public ModbusType MBType;
 		
 		public AddModbusForm()
 		{
@@ -60,8 +59,7 @@ namespace xDevice.Forms
 				int delay = 10;
 				int.TryParse(textBoxTimeout.Text, out timeout);
 				int.TryParse(textBoxDelay.Text, out delay);
-				ComParas = comboBoxPort.Text +","+ timeout.ToString() +","+ delay.ToString();
-				MBType = ModbusType.RTU;
+				ComParas = comboBoxPort.Text +","+ timeout.ToString() +","+ delay.ToString()+","+"RTU";
 			}
 			else
 			{
@@ -77,8 +75,7 @@ namespace xDevice.Forms
 				int.TryParse(textBoxPort.Text,out port);
 				int.TryParse(textBoxTimeout.Text, out timeout);
 				int.TryParse(textBoxDelay.Text, out delay);
-				ComParas = ip +":"+ port.ToString() +","+ timeout.ToString() +","+ delay.ToString();
-				MBType = ModbusType.TCP;
+				ComParas = ip +":"+ port.ToString() +","+ timeout.ToString() +","+ delay.ToString()+","+"TCP";
 			}
 			
 			DialogResult = DialogResult.OK;

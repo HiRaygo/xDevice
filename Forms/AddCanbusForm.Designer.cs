@@ -8,7 +8,7 @@
  */
 namespace xDevice.Forms
 {
-	partial class AddModbusForm
+	partial class AddCanbusForm
 	{
 		/// <summary>
 		/// Designer variable used to keep track of non-visual components.
@@ -53,8 +53,6 @@ namespace xDevice.Forms
 			this.label6 = new System.Windows.Forms.Label();
 			this.textBoxDelay = new System.Windows.Forms.TextBox();
 			this.label10 = new System.Windows.Forms.Label();
-			this.textBoxIP = new System.Windows.Forms.TextBox();
-			this.textBoxPort = new System.Windows.Forms.TextBox();
 			this.SuspendLayout();
 			// 
 			// buttonConform
@@ -204,13 +202,12 @@ namespace xDevice.Forms
 			this.comboBoxProtocol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBoxProtocol.FormattingEnabled = true;
 			this.comboBoxProtocol.Items.AddRange(new object[] {
-									"RTU",
-									"TCP"});
+									"整流模块CAN协议（一次电源）",
+									"整流模块CAN协议（二次电源）"});
 			this.comboBoxProtocol.Location = new System.Drawing.Point(246, 32);
 			this.comboBoxProtocol.Name = "comboBoxProtocol";
 			this.comboBoxProtocol.Size = new System.Drawing.Size(104, 20);
 			this.comboBoxProtocol.TabIndex = 22;
-			this.comboBoxProtocol.SelectedIndexChanged += new System.EventHandler(this.ComboBoxProtocolSelectedIndexChanged);
 			// 
 			// label6
 			// 
@@ -239,27 +236,7 @@ namespace xDevice.Forms
 			this.label10.Text = "延时：";
 			this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// textBoxIP
-			// 
-			this.textBoxIP.Location = new System.Drawing.Point(88, 80);
-			this.textBoxIP.MaxLength = 15;
-			this.textBoxIP.Name = "textBoxIP";
-			this.textBoxIP.Size = new System.Drawing.Size(93, 21);
-			this.textBoxIP.TabIndex = 26;
-			this.textBoxIP.Text = "127.0.0.1";
-			this.textBoxIP.Visible = false;
-			// 
-			// textBoxPort
-			// 
-			this.textBoxPort.Location = new System.Drawing.Point(246, 80);
-			this.textBoxPort.MaxLength = 5;
-			this.textBoxPort.Name = "textBoxPort";
-			this.textBoxPort.Size = new System.Drawing.Size(104, 21);
-			this.textBoxPort.TabIndex = 27;
-			this.textBoxPort.Text = "65432";
-			this.textBoxPort.Visible = false;
-			// 
-			// AddModbusForm
+			// AddCanbusForm
 			// 
 			this.AcceptButton = this.buttonConform;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -267,8 +244,6 @@ namespace xDevice.Forms
 			this.CancelButton = this.buttonCancle;
 			this.ClientSize = new System.Drawing.Size(394, 272);
 			this.ControlBox = false;
-			this.Controls.Add(this.textBoxPort);
-			this.Controls.Add(this.textBoxIP);
 			this.Controls.Add(this.label6);
 			this.Controls.Add(this.textBoxDelay);
 			this.Controls.Add(this.label10);
@@ -289,14 +264,12 @@ namespace xDevice.Forms
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
-			this.Name = "AddModbusForm";
+			this.Name = "AddCanbusForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-			this.Text = "添加Modbus";
+			this.Text = "添加Canbus";
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}
-		private System.Windows.Forms.TextBox textBoxPort;
-		private System.Windows.Forms.TextBox textBoxIP;
 		private System.Windows.Forms.Label label10;
 		private System.Windows.Forms.TextBox textBoxDelay;
 		private System.Windows.Forms.Label label6;

@@ -1,26 +1,27 @@
 ﻿/*
  * 由SharpDevelop创建。
  * 用户： XiaoSanYa
- * 日期: 2017/5/21
- * 时间: 18:40
+ * 日期: 2017/5/12
+ * 时间: 22:16
  * 
  * 要改变这种模板请点击 工具|选项|代码编写|编辑标准头文件
  */
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using xDevice.Common;
 
 namespace xDevice.Forms
 {
 	/// <summary>
-	/// Description of AddNetDeviceForm.
+	/// Description of AddDeviceForm.
 	/// </summary>
-	public partial class AddNetDeviceForm : Form
+	public partial class AddCanbusForm : Form
 	{
-		public string DeviceName;
-		public string CommPara;		
+		public string BusName;
+		public string ComParas;
 		
-		public AddNetDeviceForm()
+		public AddCanbusForm()
 		{
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
@@ -30,33 +31,34 @@ namespace xDevice.Forms
 			//
 			// TODO: Add constructor code after the InitializeComponent() call.
 			//
+			comboBoxPort.SelectedIndex = 0;
+			comboBoxProtocol.SelectedIndex = 0;
 		}
 		
-		public AddNetDeviceForm(bool tm)
+		public AddCanbusForm(bool tm)
 		{
 			InitializeComponent();
+			
+			comboBoxPort.SelectedIndex = 0;
+			comboBoxProtocol.SelectedIndex = 0;
 			this.TopMost = tm;
 		}
 		
 		void ButtonConformClick(object sender, EventArgs e)
 		{
 			labeltips.Text = "";
-			
-			DeviceName = textBoxName.Text.Trim();
-		
-			string DeviceIP = textBoxIP.Text.Trim();
-			string Port = textBoxPort.Text.Trim();;
-			if(string.IsNullOrEmpty(DeviceName) || string.IsNullOrEmpty(DeviceIP)|| string.IsNullOrEmpty(Port))
+			if(string.IsNullOrEmpty(textBoxName.Text.Trim()))
 			{
-			   	labeltips.Text = "设备名、IP、端口不能为空!";
+			   	labeltips.Text = "总线名不能为空!";
 			   	return;
 			}
-			int DevicePort = 65432;
-			int Timeout = 3000;
-			int.TryParse(Port, out DevicePort);
-			int.TryParse(textBoxTimeout.Text, out Timeout);
-			CommPara = DeviceIP +","+ DevicePort.ToString() +","+ Timeout.ToString();
-			
+			BusName = textBoxName.Text.Trim();
+			int timeout = 1000;
+			int delay = 10;
+			int.TryParse(textBoxTimeout.Text, out timeout);
+			int.TryParse(textBoxDelay.Text, out delay);
+			ComParas = comboBoxPort.Text +","+ timeout.ToString() +","+ delay.ToString()+","+comboBoxProtocol.SelectedIndex.ToString();
+						
 			DialogResult = DialogResult.OK;
 		}
 		
@@ -64,5 +66,6 @@ namespace xDevice.Forms
 		{
 			DialogResult = DialogResult.Cancel;
 		}
+		
 	}
 }

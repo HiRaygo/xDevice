@@ -15,29 +15,25 @@ namespace xDevice.Forms
 	/// <summary>
 	/// Description of AddDeviceForm.
 	/// </summary>
-	public partial class AddComDeviceForm : Form
+	public partial class AddCanbusDeviceForm : Form
 	{
 		public string DeviceName;
-		public string CommPara;		
+		public byte DeviceAddr;
 		
-		public AddComDeviceForm()
+		public AddCanbusDeviceForm()
 		{
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
 			//
 			InitializeComponent();
 			
-			//
-			// TODO: Add constructor code after the InitializeComponent() call.
-			//
-			comboBoxPort.SelectedIndex = 0;
+			DeviceAddr = 1;
 		}
 		
-		public AddComDeviceForm(bool tm)
+		public AddCanbusDeviceForm(bool tm)
 		{
 			InitializeComponent();
-			
-			comboBoxPort.SelectedIndex = 0;
+			DeviceAddr = 1;
 			this.TopMost = tm;
 		}
 		
@@ -50,9 +46,7 @@ namespace xDevice.Forms
 			   	return;
 			}
 			DeviceName = textBoxName.Text.Trim();
-			int CommTimeout = 1000;
-			int.TryParse(textBoxDelayms.Text, out CommTimeout);
-			CommPara = comboBoxPort.Text +","+ CommTimeout.ToString();
+			byte.TryParse(textBoxAddr.Text, out DeviceAddr);
 			
 			DialogResult = DialogResult.OK;
 		}
