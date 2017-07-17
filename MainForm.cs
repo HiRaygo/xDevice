@@ -272,7 +272,7 @@ namespace xDevice
 		//复制日志数据到剪切板
 		void ToolStripMenuItem2Click(object sender, EventArgs e)
 		{
-			if(listViewLog.SelectedItems !=null)
+			if((listViewLog.SelectedItems !=null)&&(listViewLog.SelectedItems.Count!=0))
 			{
 				Clipboard.SetText(listViewLog.SelectedItems[0].SubItems[3].Text);
 			}
@@ -344,6 +344,17 @@ namespace xDevice
 						{	device.Start();}
 					}
 				}
+				//Canbus设备
+				else if(node.Parent.Name == "Canbus")
+				{
+					Canbus bus;
+					if(CanbusManager.GetCanbusByName(node.Parent.Text, out bus))
+					{
+						CanbusDevice device;
+						if(bus.GetDeviceByName(devicename, out device))
+						{	device.Start();}
+					}
+				}
 			}			
 		}
 		
@@ -379,6 +390,17 @@ namespace xDevice
 					if(ModbusManager.GetModbusByName(node.Parent.Text, out bus))
 					{
 						ModbusDevice device;
+						if(bus.GetDeviceByName(devicename, out device))
+						{	device.Stop();}
+					}
+				}
+				//Canbus设备
+				else if(node.Parent.Name == "Canbus")
+				{
+					Canbus bus;
+					if(CanbusManager.GetCanbusByName(node.Parent.Text, out bus))
+					{
+						CanbusDevice device;
 						if(bus.GetDeviceByName(devicename, out device))
 						{	device.Stop();}
 					}
@@ -567,7 +589,7 @@ namespace xDevice
 		}
 			
 		
-		//选择设备后刷新对应的规则列表
+		//选择设备后刷新对应的列表
 		void TreeViewDeviceAfterSelect(object sender, TreeViewEventArgs e)
 		{
 			TreeNode node = treeViewDevice.SelectedNode;
@@ -597,6 +619,11 @@ namespace xDevice
 					else if(node.Name == "RootModbus")
 					{
 						info = ModbusManager.GetDeviceInfo();
+					}
+					//Canbus总线
+					else if(node.Name == "RootCanbus")
+					{
+						info = CanbusManager.GetCanDeviceInfo();
 					}
 					else
 						info = null;
@@ -644,6 +671,19 @@ namespace xDevice
 						UpdateListViewDevice(bus.GetDeviceInfo());
 					}
 				}
+				//Canbus总线
+				else if(node.Parent.Name == "RootCanbus")
+				{
+					Canbus bus;
+					if(CanbusManager.GetCanbusByName(devicename, out bus))
+					{
+						//状态栏
+						StatusLabelDevice.Text = devicename;
+						StatusLabelPara.Text = bus.CommParas;
+						StatusLabelRunning.Text = (bus.Running ? "Running" : "Stop");
+						UpdateListViewDevice(bus.GetDeviceInfo());
+					}
+				}
 				//Modbus设备
 				else if(node.Parent.Name == "Modbus")
 				{
@@ -658,6 +698,23 @@ namespace xDevice
 							StatusLabelPara.Text = "Address: "+ device.Address.ToString();
 							StatusLabelRunning.Text = (device.Running ? "Running" : "Stop");	
 							UpdateListViewReg(device.GetRegs());
+						}						
+					}
+				}
+				//Canbus设备
+				else if(node.Parent.Name == "Canbus")
+				{
+					Canbus bus;
+					if(CanbusManager.GetCanbusByName(node.Parent.Text, out bus))
+					{
+						CanbusDevice device;
+						if(bus.GetDeviceByName(devicename, out device))
+						{
+							//状态栏
+							StatusLabelDevice.Text = devicename;
+							StatusLabelPara.Text = "Address: "+ device.Address.ToString();
+							StatusLabelRunning.Text = (device.Running ? "Running" : "Stop");	
+							//UpdateListViewReg(device.GetRegs());
 						}						
 					}
 				}
@@ -1094,6 +1151,7 @@ namespace xDevice
 			ComDeviceManager.DeleteALLDevice();
 			NetDeviceManager.DeleteALLDevice();
 			ModbusManager.DeleteALLModbus();
+			CanbusManager.DeleteALLCanbus();
 		}
 		
 		//加载配置
@@ -1104,7 +1162,7 @@ namespace xDevice
 		
 		void LoadConfig()
 		{
-			XmlNodeList comlist, netlist, modlist;
+			XmlNodeList comlist, netlist, modlist, canlist;
 			try{
 				XmlDocument xmlDoc=new XmlDocument(); 
 				string runpath = Application.StartupPath;
@@ -1113,9 +1171,10 @@ namespace xDevice
 				comlist = root.SelectSingleNode("ComDevices").ChildNodes;
 				netlist = root.SelectSingleNode("NetDevices").ChildNodes;
 				modlist = root.SelectSingleNode("Modbuses").ChildNodes;
+				canlist = root.SelectSingleNode("Canbuses").ChildNodes;
 			}
 			catch(Exception ex){
-				MsgLogger.PushMsg("ComDevice","LoadConfig",ex.Message);
+				MsgLogger.PushMsg("App","LoadConfig",ex.Message);
 				return;
 			}
 			//comdevice
@@ -1179,6 +1238,38 @@ namespace xDevice
 			}
 			catch(Exception ex){
 				MsgLogger.PushMsg("Modbus","LoadConfig",ex.Message);
+				return;
+			}
+			//Canbus
+			try{
+				int n=0;
+				foreach(XmlNode xn in modlist)
+				{
+					XmlElement xe = (XmlElement)xn;					
+					name = xe.GetAttribute("Name");
+					para = xe.GetAttribute("Para");
+					Canbus bus = new Canbus(name,para);
+					if(CanbusManager.AddCanbus(bus))
+						treeViewDevice.Nodes[3].Nodes.Add("Canbus",name);
+					else
+						continue;
+					//总线设备
+					XmlNodeList devlist = xn.ChildNodes;
+					foreach(XmlNode xxn in devlist)
+					{
+						XmlElement xxe = (XmlElement)xxn;
+						string devname = xxe.GetAttribute("Name");
+						byte addr = byte.Parse(xxe.GetAttribute("Para"));
+						if(bus.AddDevice(new CanbusDevice(devname, addr)))
+						{
+							treeViewDevice.Nodes[3].Nodes[n].Nodes.Add("BusDevice",devname);
+						}
+					}
+					n++;
+				}
+			}
+			catch(Exception ex){
+				MsgLogger.PushMsg("Canbus","LoadConfig",ex.Message);
 				return;
 			}
 			treeViewDevice.ExpandAll();
@@ -1246,6 +1337,35 @@ namespace xDevice
 								xmlWriter.WriteStartElement("Device");
 								xmlWriter.WriteAttributeString("Name", mbdevs[0][ii]);
 								xmlWriter.WriteAttributeString("Para", mbdevs[1][ii]);
+								xmlWriter.WriteEndElement();
+							}
+						}
+					}					
+					xmlWriter.WriteEndElement();
+				}
+				xmlWriter.WriteEndElement();
+			}
+			//Canbus
+			string[][] cbuses = CanbusManager.GetCanDeviceInfo();
+			if(cbuses != null)
+			{
+				xmlWriter.WriteStartElement("Canbuses");
+				for(int i=0; i<cbuses[0].Length; i++)
+				{
+					xmlWriter.WriteStartElement("Bus");
+					xmlWriter.WriteAttributeString("Name", cbuses[0][i]);
+					xmlWriter.WriteAttributeString("Para", cbuses[1][i]);
+					Canbus bus;
+					if(CanbusManager.GetCanbusByName(cbuses[0][i], out bus))
+					{
+						string[][] cbdevs = bus.GetDeviceInfo();
+						if(cbdevs != null)
+						{
+							for(int ii=0; ii<cbdevs[0].Length; ii++)
+							{
+								xmlWriter.WriteStartElement("Device");
+								xmlWriter.WriteAttributeString("Name", cbdevs[0][ii]);
+								xmlWriter.WriteAttributeString("Para", cbdevs[1][ii]);
 								xmlWriter.WriteEndElement();
 							}
 						}
