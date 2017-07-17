@@ -47,7 +47,6 @@ namespace xDevice.Forms
 			this.label8 = new System.Windows.Forms.Label();
 			this.label9 = new System.Windows.Forms.Label();
 			this.labeltips = new System.Windows.Forms.Label();
-			this.label3 = new System.Windows.Forms.Label();
 			this.label5 = new System.Windows.Forms.Label();
 			this.comboBoxProtocol = new System.Windows.Forms.ComboBox();
 			this.label6 = new System.Windows.Forms.Label();
@@ -96,7 +95,7 @@ namespace xDevice.Forms
 			// 
 			// label2
 			// 
-			this.label2.Location = new System.Drawing.Point(32, 80);
+			this.label2.Location = new System.Drawing.Point(199, 32);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(53, 23);
 			this.label2.TabIndex = 4;
@@ -128,7 +127,7 @@ namespace xDevice.Forms
 									"COM18",
 									"COM19",
 									"COM20"});
-			this.comboBoxPort.Location = new System.Drawing.Point(88, 80);
+			this.comboBoxPort.Location = new System.Drawing.Point(255, 32);
 			this.comboBoxPort.Name = "comboBoxPort";
 			this.comboBoxPort.Size = new System.Drawing.Size(93, 20);
 			this.comboBoxPort.TabIndex = 5;
@@ -171,26 +170,17 @@ namespace xDevice.Forms
 			// 
 			// labeltips
 			// 
-			this.labeltips.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+			this.labeltips.ForeColor = System.Drawing.SystemColors.Highlight;
 			this.labeltips.Location = new System.Drawing.Point(88, 176);
 			this.labeltips.Name = "labeltips";
 			this.labeltips.Size = new System.Drawing.Size(271, 23);
 			this.labeltips.TabIndex = 18;
+			this.labeltips.Text = "*必须选择虚拟串口";
 			this.labeltips.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// label3
-			// 
-			this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
-			this.label3.Location = new System.Drawing.Point(199, 77);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(146, 23);
-			this.label3.TabIndex = 19;
-			this.label3.Text = "*必须选择虚拟串口";
-			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// label5
 			// 
-			this.label5.Location = new System.Drawing.Point(199, 30);
+			this.label5.Location = new System.Drawing.Point(32, 80);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(53, 23);
 			this.label5.TabIndex = 21;
@@ -204,9 +194,9 @@ namespace xDevice.Forms
 			this.comboBoxProtocol.Items.AddRange(new object[] {
 									"整流模块CAN协议（一次电源）",
 									"整流模块CAN协议（二次电源）"});
-			this.comboBoxProtocol.Location = new System.Drawing.Point(246, 32);
+			this.comboBoxProtocol.Location = new System.Drawing.Point(88, 80);
 			this.comboBoxProtocol.Name = "comboBoxProtocol";
-			this.comboBoxProtocol.Size = new System.Drawing.Size(104, 20);
+			this.comboBoxProtocol.Size = new System.Drawing.Size(260, 20);
 			this.comboBoxProtocol.TabIndex = 22;
 			// 
 			// label6
@@ -249,7 +239,6 @@ namespace xDevice.Forms
 			this.Controls.Add(this.label10);
 			this.Controls.Add(this.comboBoxProtocol);
 			this.Controls.Add(this.label5);
-			this.Controls.Add(this.label3);
 			this.Controls.Add(this.labeltips);
 			this.Controls.Add(this.label9);
 			this.Controls.Add(this.label8);
@@ -275,7 +264,6 @@ namespace xDevice.Forms
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.ComboBox comboBoxProtocol;
 		private System.Windows.Forms.Label label5;
-		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Label labeltips;
 		private System.Windows.Forms.Label label9;
 		private System.Windows.Forms.Label label8;
